@@ -1,6 +1,9 @@
+const Task = require('../models/taskModel');
+
 // TODO: Get all tasks
-exports.getAllTasks = (req, res) => {
-  res.send('All Tasks');
+exports.getAllTasks = async (req, res) => {
+  const tasks = await Task.find();
+  res.status(200).send({ success: true, data: tasks});
 };
 // TODO: Create a task
 exports.createTask = (req, res) => {
