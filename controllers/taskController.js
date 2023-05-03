@@ -35,12 +35,26 @@ exports.getTask = async (req, res) => {
     res.status(500).send({ success: false, message: 'There was an error!💥' });
   }
 };
-// TODO: Update a task
-exports.updateTask = (req, res) => {
-  res.send('Updated Task');
+// NOTE: Update a task
+exports.updateTask = async (req, res) => {
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+      runValidators: true,
+      new: true,
+    });
+    if (!task) {
+      return res
+        .status(404)
+        .send({ success: false, message: `No task with id: ${req.params.id}` });
+    }
+    res.status(200).send({ success: true, data: task });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ success: false, message: 'There was an error!💥' });
+  }
 };
-// TODO: Delete a task
-exports.deleteTask = async  (req, res) => {
+// NOTE: Delete a task
+exports.deleteTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
     if (!task) {
