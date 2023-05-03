@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const taskRouter = require('./routes/taskRoutes');
 const AppError = require('./middleware/appError');
-const globalErrorHandler = require('./controllers/errorController');
+const { globalErrorHandler } = require('./middleware/globalErrorHandler');
 
 // Middleware
 app.use(express.static('./public'));
