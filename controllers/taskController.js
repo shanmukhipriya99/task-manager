@@ -24,6 +24,11 @@ exports.createTask = async (req, res) => {
 exports.getTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
+    if (!task) {
+      return res
+        .status(404)
+        .send({ success: false, message: `No task with id: ${req.params.id}` });
+    }
     res.status(200).send({ success: true, data: task });
   } catch (err) {
     console.log(err);
@@ -35,6 +40,17 @@ exports.updateTask = (req, res) => {
   res.send('Updated Task');
 };
 // TODO: Delete a task
-exports.deleteTask = (req, res) => {
-  res.send('Deleted Task');
+exports.deleteTask = async  (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) {
+      return res
+        .status(404)
+        .send({ success: false, message: `No task with id: ${req.params.id}` });
+    }
+    res.status(200).send({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ success: false, message: 'There was an error!💥' });
+  }
 };
