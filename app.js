@@ -3,12 +3,10 @@ const app = express();
 const taskRouter = require('./routes/taskRoutes');
 
 // Middleware
+app.use(express.static('./public'));
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Task Manager App');
-});
 app.use('/api/v1/tasks', taskRouter);
 
 module.exports = app;
