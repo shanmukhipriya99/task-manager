@@ -4,7 +4,9 @@ const Task = require('../models/taskModel');
 exports.getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find();
-    res.status(200).send({ success: true, data: tasks });
+    res
+      .status(200)
+      .send({ success: true, quantity: tasks.length, data: tasks });
   } catch (err) {
     console.log(err);
     res.status(500).send({ success: false, message: 'There was an error!💥' });
