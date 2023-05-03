@@ -11,8 +11,4 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/tasks', taskRouter);
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Listening on port: ${port}`);
-});
+module.exports = app;
